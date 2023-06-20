@@ -8,7 +8,7 @@
 </head>
 <body>
     <div id="usernamebox" style="padding: 10px" >
-        <input id="username" placeholder="username..." type="text" size="40">
+        <input onkeydown="if (event.key === 'Enter') changeUsername()" id="username" placeholder="username..." type="text" size="40">
         <button onclick="changeUsername()">change username</button>
     </div>
     

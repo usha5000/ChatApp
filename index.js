@@ -65,16 +65,19 @@ function getMessage(message) {
 io.on("connection", (socket) => {
     console.log("new client connected");
     socket.on("messages", (message)=> {
-        if (message.type === 'user') {
-            message.socketId = socket.id
+        switch (message.type) {
+            case "user":
+                message.socketId = socket.id
 
-            redisClient.set(`user: ${message.socketId}`, JSON.stringify(message))
-            publisher.publish('newUser', JSON.stringify(message))
-
-        } else {
-            publisher.publish('newMessage', JSON.stringify(message))
-        }
-        
+                redisClient.set(`user: ${message.socketId}`, JSON.stringify(message))
+                publisher.publish('newUser', JSON.stringify(message))
+                break;
+            case "message":
+                publisher.publish('newMessage', JSON.stringify(message))
+                break;
+            default:
+                break;
+        }        
     })
 
     socket.on("disconnect", async ()=> {

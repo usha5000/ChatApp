@@ -34,14 +34,16 @@ function sendUserData() {
 }
 
 
-
 function changeUsername() {
     let newUsername = document.getElementById('username').value
+
+    if (newUsername === "") return;
 
     let userObject = {
         type: "user",
         username: newUsername,
     }
+    socket.emit('messages', userObject)
     console.log(userObject);
 }
 
@@ -64,15 +66,15 @@ function sendMessage() {
 function addMessage(data) {
     let messageBox = document.getElementById('messagebox')
     let messageContainer = document.createElement('div')
+    let nameTag = document.createElement('p')
 
     if (data.browserId == browserId) {
         messageContainer.classList.add('myMessage')
+        nameTag.innerHTML = data.username + ' (you)'
     } else {
         messageContainer.classList.add('clientMessage')
+        nameTag.innerHTML = data.username
     }
-
-    let nameTag = document.createElement('p')
-    nameTag.innerHTML = data.username
 
     let timeTag = document.createElement('p')
     timeTag.innerHTML = data.date
