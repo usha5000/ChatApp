@@ -1,0 +1,31 @@
+  #onlineUserbox {
+    border: 2px solid black;
+    width: 300px;
+    height: 500px;
+    float: left;
+  }
+  
+  #messagebox {
+    border: 2px solid black;
+    width: 600px;
+    height: 500px;
+    margin-left: 35%;
+    overflow-y: auto;
+  }
+  
+  .myMessage {
+    border: 2px solid black;
+    width: 100px;
+    margin: 20px;
+    margin-left: 75%;
+    padding: 10px;
+    text-align: right;
+  }
+
+  .clientMessage {
+    border: 2px solid black;
+    width: 100px;
+    margin: 20px;
+    padding: 10px;
+    text-align: left;
+  }

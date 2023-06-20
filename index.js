@@ -1,7 +1,10 @@
+const redis = require("redis")
+let publisher;
+let redisClient;
+let subscriber;
 const express = require('express')
 const http = require('http')
 const socketio = require('socket.io')
-
 const app = express()
 const server = http.createServer(app)
 const io = socketio(server, {
@@ -13,18 +16,86 @@ const io = socketio(server, {
 app.use(express.json())
 app.use(express.static("client"))
 
+async function iniateRedis() {
+    redisClient = redis.createClient({
+        host: 'localhost',
+        port: 6379
+    });
+
+    redisClient.on('connect', () => {
+        console.log('verbindung zu redis hergestellt');
+    });
+    redisClient.on("error", (error) => console.error(`Error : ${error}`));
+
+    await redisClient.connect();
+    
+    subscriber = redisClient.duplicate()
+    await subscriber.connect()
+
+    publisher = redisClient.duplicate()
+    await publisher.connect()
+
+    await subscriber.subscribe('newMessage', getMessage)
+    await subscriber.subscribe('newUser', getUser)
+      
+}
+
+async function getUser(user) {
+    let userKeys = await redisClient.keys('*')
+
+    let users = [];
+    for (let i = 0; i < userKeys.length; i++) {
+        let user = await redisClient.get(userKeys[i]);
+        if (user) {
+            users.push(JSON.parse(user));
+        }
+    }
+
+    io.sockets.emit('messages', users)
+
+    console.log(userKeys);
+    console.log(users);
+}
+
+function getMessage(message) {
+    let parsed = JSON.parse(message)
+    io.sockets.emit('messages', parsed)
+}
+
 io.on("connection", (socket) => {
     console.log("new client connected");
-
     socket.on("messages", (message)=> {
-        console.log(message);
+        if (message.type === 'user') {
+            message.socketId = socket.id
+
+            redisClient.set(`user: ${message.socketId}`, JSON.stringify(message))
+            publisher.publish('newUser', JSON.stringify(message))
+
+        } else {
+            publisher.publish('newMessage', JSON.stringify(message))
+        }
+        
     })
 
-    socket.on("disconnect", ()=> {
-        console.log("user disconnected");
+    socket.on("disconnect", async ()=> {
+            console.log('user disconnected');
+            redisClient.del(`user: ${socket.id}`)
+            let key = await redisClient.keys('*')
+            console.log(key);
+            let users = []
+            for (let i = 0; i < key.length; i++){
+                let user = await redisClient.get(key[i]);
+                if (user) {
+                    users.push(JSON.parse(user));
+                } 
+            }
+            io.sockets.emit('messages', users)
     })
 })
 
+
+
 server.listen(3000, () => {
+    iniateRedis()
     console.log("online on 3000");
 })
