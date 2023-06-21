@@ -18,9 +18,11 @@ app.use(express.static("client"))
 
 async function iniateRedis() {
     redisClient = redis.createClient({
-        host: 'localhost',
-        port: 6379
-    });
+        socket: {
+          host: process.env.REDIS_HOST || "localhost",
+          port: process.env.REDIS_PORT || "6379",
+        },
+      });
 
     redisClient.on('connect', () => {
         console.log('verbindung zu redis hergestellt');
