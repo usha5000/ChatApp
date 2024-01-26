@@ -1,15 +1,50 @@
+   body {
+    background-color: #e3e3e3
+   }
+
+   #username {
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    padding: 6px;
+  }
+
+  #usernamebox button {
+    background-color: #4CAF50;
+    padding: 6px;
+    color: white;
+    border-style: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  #usernamebox button:hover {
+    background-color: #45a049;
+  }
+
+
+  #container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: center;
+  }
+
+
   #onlineUserbox {
-    border: 2px solid black;
-    width: 300px;
-    height: 500px;
-    float: left;
+    border: 2px solid #3498db;
+    border-radius: 8px;
+    padding: 10px;
+    width: 10%;
+    background-color: #f5f5f5;
   }
   
   #messagebox {
-    border: 2px solid black;
-    width: 600px;
+    border: 2px solid #3498db;
+    border-radius: 8px;
+    width: 50%;
     height: 500px;
-    margin-left: 35%;
+    margin-right: 20%;
+    background-color: #f5f5f5;
     overflow-y: auto;
   }
   
