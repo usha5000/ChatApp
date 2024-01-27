@@ -65,7 +65,13 @@ function sendMessage() {
 
 function addMessage(data) {
     let messageBox = document.getElementById('messagebox')
+
     let messageContainer = document.createElement('div')
+    messageContainer.classList.add("messageContainer")
+
+    let message = document.createElement('div')
+    message.classList.add("message")
+
     let nameTag = document.createElement('p')
 
     if (data.browserId == browserId) {
@@ -82,9 +88,11 @@ function addMessage(data) {
     let messageTag = document.createElement('p')
     messageTag.innerHTML = data.message
 
-    messageContainer.appendChild(nameTag)
-    messageContainer.appendChild(timeTag)
-    messageContainer.appendChild(messageTag)
+    message.appendChild(nameTag)
+    message.appendChild(timeTag)
+    message.appendChild(messageTag)
+
+    messageContainer.appendChild(message)
 
     messageBox.appendChild(messageContainer)
     messageBox.scrollTop = messageBox.scrollHeight;

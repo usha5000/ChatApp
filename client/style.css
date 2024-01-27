@@ -1,66 +1,120 @@
-   body {
-    background-color: #e3e3e3
-   }
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+}
 
-   #username {
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    padding: 6px;
-  }
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  background-color: #1C1C1E;
+}
 
-  #usernamebox button {
-    background-color: #4CAF50;
-    padding: 6px;
-    color: white;
-    border-style: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
+.sidebar {
+  height: calc(100% - 20px);
+  width: 280px;
+  background-color: #2C2C2E;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
 
-  #usernamebox button:hover {
-    background-color: #45a049;
-  }
+.userlist {
+  width: 100%;
+  height: 100%;
+}
 
+.usernamebox {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: large;
+}
 
-  #container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    text-align: center;
-  }
+.usernamebox button {
+  background-color: #007AFF;
+  border: 0;
+  cursor: pointer;
+  height: 100%;
+  padding-left: 20px;
+  padding-right: 20px;
+}
 
+.usernamebox button:hover {
+  background-color: #045cbd;
+}
 
-  #onlineUserbox {
-    border: 2px solid #3498db;
-    border-radius: 8px;
-    padding: 10px;
-    width: 10%;
-    background-color: #f5f5f5;
-  }
-  
-  #messagebox {
-    border: 2px solid #3498db;
-    border-radius: 8px;
-    width: 50%;
-    height: 500px;
-    margin-right: 20%;
-    background-color: #f5f5f5;
-    overflow-y: auto;
-  }
-  
-  .myMessage {
-    border: 2px solid black;
-    width: 100px;
-    margin: 20px;
-    margin-left: 75%;
-    padding: 10px;
-    text-align: right;
-  }
+.usernamebox input {
+  background-color: #3A3A3C;
+  border: 0;
+  width: 100%;
+  font-size: large;
+  outline: none;
+  padding: 5px;
+}
 
-  .clientMessage {
-    border: 2px solid black;
-    width: 100px;
-    margin: 20px;
-    padding: 10px;
-    text-align: left;
-  }
+.chat {
+  width: calc(100% - 300px);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#messagebox {
+  width: 100%;
+  height: calc(100vh - 50px);
+}
+
+#inputbox {
+  width: 100%;
+  height: 50px;
+  background-color: #3A3A3C;
+  display: flex;
+}
+
+#inputbox input {
+  height: 100%;
+  background-color: transparent;
+  border: 0;
+  outline: none;
+  width: 100%;
+  padding-left: 20px;
+}
+
+#inputbox button {
+  width: 20%;
+  background-color: #007AFF;
+  border: 0;
+  cursor: pointer;
+}
+
+#inputbox button:hover {
+  background-color: #045cbd;
+}
+
+.messageContainer {
+  width: 100%;
+}
+
+.myMessage {
+  text-align: right;
+}
+
+.clientMessage {
+  text-align: left;
+}
+
+.message {
+  background-color: #007AFF;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  display: inline-block;
+  max-width: 40%;
+  overflow-y: auto;
+  text-align: left;
+}
